@@ -19,5 +19,14 @@
   },
   "directories": {
     "test": "test"
-  }
+  },
+  "description": "A friendly, shared shopping list that speaks SMS.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/banterability/quartermaster.git"
+  },
+  "bugs": {
+    "url": "https://github.com/banterability/quartermaster/issues"
+  },
+  "homepage": "https://github.com/banterability/quartermaster"
 }
