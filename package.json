@@ -1,13 +1,14 @@
 {
   "name": "quartermaster",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "index.coffee",
   "scripts": {
     "test": "mocha"
   },
   "author": "Jeff Long",
   "license": "MIT",
   "dependencies": {
+    "coffee-script": "^1.7.1",
     "hiredis": "^0.1.16",
     "redis": "^0.10.3",
     "twilio": "^1.6.0"
