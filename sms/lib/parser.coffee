@@ -9,7 +9,10 @@ class Parser
 
   understand: ->
     options = @listeners.map (listener) => listener(@phrase)
+    console.log 'options', options
     bestOption = find options, (option) -> option
+    console.log 'best option', bestOption
+    bestOption
 
 module.exports = Parser
 
