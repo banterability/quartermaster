@@ -9,9 +9,9 @@
   "license": "MIT",
   "dependencies": {
     "coffee-script": "^1.7.1",
+    "express": "^4.4.0",
     "hiredis": "^0.1.16",
     "redis": "^0.10.3",
-    "twilio": "^1.6.0",
     "underscore": "^1.6.0"
   },
   "devDependencies": {
