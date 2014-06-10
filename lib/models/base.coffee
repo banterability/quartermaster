@@ -7,9 +7,8 @@ class BaseModel
 
   set: (key, value) ->
     @attributes[key] = value
-    response = {}
-    response[key] = value
-    response
+    (output = {})[key] = value
+    output
 
   toJSON: ->
     @attributes
