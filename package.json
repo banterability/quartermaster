@@ -8,6 +8,7 @@
   "author": "Jeff Long",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.2.2",
     "coffee-script": "^1.7.1",
     "express": "^4.4.0",
     "hiredis": "^0.1.16",
