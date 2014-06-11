@@ -1,4 +1,3 @@
-bodyParser = require 'body-parser'
 express = require 'express'
 fs = require 'fs'
 
@@ -6,7 +5,8 @@ config = JSON.parse fs.readFileSync 'config.json', encoding: 'utf-8'
 
 app = express()
 
-app.use bodyParser()
+app.use require('body-parser')()
+app.use require('morgan')('dev')
 
 app.get '/', (req, res) ->
   renderFromFile res, 'index'
