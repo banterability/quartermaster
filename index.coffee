@@ -11,6 +11,12 @@ app.use bodyParser()
 app.get '/', (req, res) ->
   renderFromFile res, 'index'
 
+app.get '/join', (req, res) ->
+  renderFromFile res, 'new_user'
+
+app.post '/welcome', (req, res) ->
+  console.log 'body', req.body
+  renderFromFile res, 'thanks'
 
 port = process.env.PORT || 5678
 app.listen port, ->
