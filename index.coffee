@@ -8,24 +8,22 @@ app = express()
 app.use require('body-parser')()
 app.use require('morgan')('dev')
 
+app.set 'view engine', 'mustache'
+app.set 'layout', 'layout'
+# app.set 'partials', header: 'header'
+# app.enable 'view cache'
+app.engine 'mustache', require 'hogan-express'
+
 app.get '/', (req, res) ->
-  renderFromFile res, 'index'
+  res.render 'index'
 
 app.get '/join', (req, res) ->
-  renderFromFile res, 'new_user'
+  res.render 'new_user'
 
 app.post '/welcome', (req, res) ->
   console.log 'body', req.body
-  renderFromFile res, 'thanks'
+  res.render 'thanks'
 
 port = process.env.PORT || 5678
 app.listen port, ->
   console.log "server up on #{port}…"
-
-## Helpers
-
-renderFromFile = (res, filename) ->
-  fs.readFile "views/#{filename}.html", encoding: 'utf-8', (err, data) ->
-    return res.send 500 if err
-    res.setHeader 'Content-Type', 'text/html; charset=utf-8'
-    res.send data
