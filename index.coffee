@@ -1,5 +1,6 @@
 express = require 'express'
 fs = require 'fs'
+userRoutes = require './routes/users'
 
 config = JSON.parse fs.readFileSync 'config.json', encoding: 'utf-8'
 
@@ -17,14 +18,7 @@ app.engine 'mustache', require 'hogan-express'
 app.get '/', (req, res) ->
   res.render 'index'
 
-app.get '/join', (req, res) ->
-  res.render 'new_user'
-
-app.post '/welcome', (req, res) ->
-  console.log 'body', req.body
-  res.locals =
-    title: 'Welcome, new best friend!'
-  res.render 'thanks'
+app.use '/users', userRoutes
 
 port = process.env.PORT || 5678
 app.listen port, ->
