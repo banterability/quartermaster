@@ -22,6 +22,8 @@ app.get '/join', (req, res) ->
 
 app.post '/welcome', (req, res) ->
   console.log 'body', req.body
+  res.locals =
+    title: 'Welcome, new best friend!'
   res.render 'thanks'
 
 port = process.env.PORT || 5678
