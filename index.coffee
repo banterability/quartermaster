@@ -1,10 +1,9 @@
 express = require 'express'
-fs = require 'fs'
+loadConfig = require './lib/config'
 userRoutes = require './routes/users'
 
-config = JSON.parse fs.readFileSync 'config.json', encoding: 'utf-8'
-
 app = express()
+config = loadConfig 'config.json'
 
 app.use require('body-parser')()
 app.use require('morgan')('dev')
