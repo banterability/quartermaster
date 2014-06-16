@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "assertive": "^1.4.0",
+    "bondjs": "^1.1.1",
     "mocha": "^1.20.0"
   },
   "directories": {
