@@ -21,9 +21,22 @@ class HashModel extends BaseModel
     @store.hset @key, field, value, (err, results) ->
       cb err, results
 
-  toJSON: (cb) ->
+  getAll: (cb) ->
     @store.hgetall @key, (err, results) ->
       cb err, results
 
+class ListModel extends BaseModel
+  push: (item, cb) ->
+    @store.rpush @key, item, (err, results) ->
+      cb err, results
 
-module.exports = {HashModel}
+  pop: (cb) ->
+    @store.rpop @key, (err, results) ->
+      cb err, results
+
+  getAll: (cb) ->
+    @store.lrange @key, 0, -1, (err, results) ->
+      cb err, results
+
+
+module.exports = {HashModel, ListModel}

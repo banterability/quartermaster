@@ -1,21 +1,52 @@
 assert = require 'assertive'
 
-module.exports.behavesLikeAHashModel = ->
-  it 'generates a new uuid', ->
-    assert.truthy @model.uuid
+behavesLikeAModel = ->
+  describe 'shared model behaviors', ->
+    it 'generates a new uuid', ->
+      assert.truthy @model.uuid
 
-  it 'generates a unique Redis key', ->
-    assert.equal "quartermaster:#{@model.constructor.name}:#{@model.uuid}", @model.dbKey()
+    it 'generates a unique Redis key', ->
+      assert.equal "quartermaster:#{@model.constructor.name}:#{@model.uuid}", @model.dbKey()
 
-  it 'sets new attributes on model', ->
-    @model.set 'name', 'Chip', =>
+behavesLikeAHashModel = ->
+  describe 'shared hash model behaviors', ->
+    it 'sets new attributes on model', ->
+      @model.set 'name', 'Chip', =>
+        @model.get 'name', (err, value) ->
+          assert.equal 'Chip', value
+
+    it 'gets existing attributes off model', ->
       @model.get 'name', (err, value) ->
         assert.equal 'Chip', value
 
-  it 'gets existing attributes off model', ->
-    @model.get 'name', (err, value) ->
-      assert.equal 'Chip', value
+    it 'gets all attributes off model', ->
+      attributes = @model.getAll (err, data) ->
+        assert.deepEqual {name: 'Chip'}, data
 
-  it 'gets all attributes off model', ->
-    attributes = @model.toJSON (err, data) ->
-      assert.deepEqual {name: 'Chip'}, data
+behavesLikeAListModel = ->
+  describe 'shared list model behaviors', ->
+    before ->
+      @model.push 'apple', ->
+      @model.push 'banana', ->
+      @model.push 'cherry', ->
+
+    it 'push new item into model', ->
+      @model.push 'date', =>
+        @model.getAll (err, list) ->
+          assert.equal 4, list.length
+          assert.equal 'date', list.pop()
+
+    it 'pops last item off model', ->
+      @model.pop (err, item) ->
+        assert.equal 'date', item
+
+    it 'gets all attributes off model', ->
+      @model.getAll (err, list) ->
+        assert.equal 3, list.length
+        assert.deepEqual ['apple', 'banana', 'cherry'], list
+
+module.exports = {
+  behavesLikeAModel
+  behavesLikeAHashModel
+  behavesLikeAListModel
+}

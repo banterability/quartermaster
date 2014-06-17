@@ -1,13 +1,14 @@
 assert = require 'assertive'
 User = require '../../lib/models/user'
-ModelTests = require './shared_model_tests'
+Behaviors = require './shared_model_tests'
 
 describe 'User Model', ->
   describe 'inherited methods', ->
     before ->
       @model = new User
 
-    ModelTests.behavesLikeAHashModel()
+    Behaviors.behavesLikeAModel()
+    Behaviors.behavesLikeAHashModel()
 
   describe 'isActive', ->
     it 'returns the value of the "active" property', ->
