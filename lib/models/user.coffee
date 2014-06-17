@@ -1,7 +1,8 @@
 BaseModel = require './base'
 
 class User extends BaseModel
-  isActive: ->
-    @attributes.active || false
+  isActive: (cb) ->
+    @get 'active', (err, results) ->
+      cb err, results == 'true'
 
 module.exports = User

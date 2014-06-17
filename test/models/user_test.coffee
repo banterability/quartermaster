@@ -12,9 +12,11 @@ describe 'User Model', ->
   describe 'isActive', ->
     it 'returns the value of the "active" property', ->
       activeUser = new User
-      activeUser.set 'active', true
-      assert.equal true, activeUser.isActive()
+      activeUser.set 'active', true, ->
+        activeUser.isActive (err, bool) ->
+          assert.equal true, bool
 
     it 'defaults to false', ->
       inactiveUser = new User
-      assert.equal false, inactiveUser.isActive()
+      inactiveUser.isActive (err, bool) ->
+        assert.equal false, bool

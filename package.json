@@ -14,6 +14,7 @@
     "hiredis": "^0.1.16",
     "hogan-express": "^0.5.2",
     "morgan": "^1.1.1",
+    "node-uuid": "^1.4.1",
     "redis": "^0.10.3",
     "underscore": "^1.6.0"
   },

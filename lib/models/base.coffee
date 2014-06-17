@@ -1,17 +1,30 @@
+redis = require 'redis'
+uuid = require 'node-uuid'
+
+store = redis.createClient()
+
 class BaseModel
-  constructor: (options) ->
-    @attributes = {}
+  constructor: (options={}) ->
+    @store = store
+    @uuid = options.uuid || uuid.v1()
 
-  get: (key) ->
-    @attributes[key]
+  dbKey: ->
+    "quartermaster:#{@constructor.name}:#{@uuid}"
 
-  set: (key, value) ->
-    @attributes[key] = value
-    (output = {})[key] = value
-    output
+  get: (field, cb) ->
+    key = @dbKey()
+    @store.hget key, field, (err, results) ->
+      cb err, results
 
-  toJSON: ->
-    @attributes
+  set: (field, value, cb) ->
+    key = @dbKey()
+    @store.hset key, field, value, (err, results) ->
+      cb err, results
+
+  toJSON: (cb) ->
+    key = @dbKey()
+    @store.hgetall key, (err, results) ->
+      cb err, results
 
 
 module.exports = BaseModel
