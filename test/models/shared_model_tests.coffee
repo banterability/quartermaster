@@ -4,6 +4,9 @@ module.exports.behavesLikeAModel = ->
   it 'generates a new uuid', ->
     assert.truthy @model.uuid
 
+  it 'generates a unique Redis key', ->
+    assert.equal "quartermaster:#{@model.constructor.name}:#{@model.uuid}", @model.dbKey()
+
   it 'sets new attributes on model', ->
     @model.set 'name', 'Chip', =>
       @model.get 'name', (err, value) ->
