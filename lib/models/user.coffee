@@ -1,6 +1,6 @@
-BaseModel = require './base'
+{HashModel} = require './base'
 
-class User extends BaseModel
+class User extends HashModel
   isActive: (cb) ->
     @get 'active', (err, results) ->
       cb err, results == 'true'

@@ -1,6 +1,6 @@
 assert = require 'assertive'
 
-module.exports.behavesLikeAModel = ->
+module.exports.behavesLikeAHashModel = ->
   it 'generates a new uuid', ->
     assert.truthy @model.uuid
 

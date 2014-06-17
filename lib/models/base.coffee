@@ -7,24 +7,23 @@ class BaseModel
   constructor: (options={}) ->
     @store = store
     @uuid = options.uuid || uuid.v1()
+    @key = @dbKey()
 
   dbKey: ->
     "quartermaster:#{@constructor.name}:#{@uuid}"
 
+class HashModel extends BaseModel
   get: (field, cb) ->
-    key = @dbKey()
-    @store.hget key, field, (err, results) ->
+    @store.hget @key, field, (err, results) ->
       cb err, results
 
   set: (field, value, cb) ->
-    key = @dbKey()
-    @store.hset key, field, value, (err, results) ->
+    @store.hset @key, field, value, (err, results) ->
       cb err, results
 
   toJSON: (cb) ->
-    key = @dbKey()
-    @store.hgetall key, (err, results) ->
+    @store.hgetall @key, (err, results) ->
       cb err, results
 
 
-module.exports = BaseModel
+module.exports = {HashModel}

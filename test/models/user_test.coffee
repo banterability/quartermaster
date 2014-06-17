@@ -7,7 +7,7 @@ describe 'User Model', ->
     before ->
       @model = new User
 
-    ModelTests.behavesLikeAModel()
+    ModelTests.behavesLikeAHashModel()
 
   describe 'isActive', ->
     it 'returns the value of the "active" property', ->
