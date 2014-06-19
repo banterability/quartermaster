@@ -22,4 +22,4 @@ app.use '/users', userRoutes
 
 port = process.env.PORT || 5678
 app.listen port, ->
-  console.log "server up on #{port}…"
+  console.log "#{app.get 'env'} server up on #{port}…"
