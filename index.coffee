@@ -7,7 +7,7 @@ config = loadConfig 'config.json'
 
 app.use require('body-parser')()
 app.use require('morgan')('dev')
-app.use '/assets', express.static "#{__dirname}/public"
+app.use '/assets', express.static "#{__dirname}/public" unless app.get 'env' == 'production'
 
 app.set 'view engine', 'mustache'
 app.set 'layout', 'layout'
