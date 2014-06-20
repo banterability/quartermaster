@@ -45,6 +45,14 @@ var addItem = function(ev){
 
 document.querySelector('.submit').addEventListener('click', addItem, false);
 
+// Detect enter key in input box
+document.querySelector('input').addEventListener('keyup', function(ev){
+  if(ev.keyCode === 13){
+    ev.currentTarget.nextElementSibling.click();
+  }
+  return false;
+}, false);
+
 var deleteItem = function(ev){
   var parentEl = ev.currentTarget.parentElement;
   var itemName = parentEl.querySelector('span').textContent;
