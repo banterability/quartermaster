@@ -21,7 +21,7 @@ app.get '/', (req, res) ->
     res.locals.list = items
     res.render 'index'
 
-app.post '/items/', (req, res) ->
+app.post '/items/create', (req, res) ->
   console.log req.body
   DEV_LIST.push req.body.name, (err, response) ->
     console.log 'push err', err
