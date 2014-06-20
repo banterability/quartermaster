@@ -17,3 +17,18 @@ var ajaxPost = function(url, data, cb){
   request.send(JSON.stringify(data));
 }
 
+var deleteItem = function(ev){
+  var parentEl = ev.currentTarget.parentElement;
+  var itemName = parentEl.querySelector('span').textContent;
+  ajaxPost('/items/delete', {name: itemName}, function(){
+    parentEl.remove();
+  });
+};
+
+var addDeleteListener = function(el){
+  el.addEventListener('click', deleteItem, false);
+};
+
+[].forEach.call(document.querySelectorAll('.delete-item'), function(node){
+  addDeleteListener(node);
+});
