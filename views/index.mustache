@@ -1,6 +1,17 @@
+<style>
+  li a{
+    display: inline-block;
+    margin-left: 5px;
+  }
+</style>
+
 <h2>quartermaster</h2>
 <ul>
   {{#list}}
-    <li>{{.}}</li>
+    <li>
+      <span>{{.}}</span><a class='delete-item' href='javascript:void(0);'>x</a>
+    </li>
   {{/list}}
 </ul>
+<input type="text" placeholder="Add item">
+<button class='submit'>Add</button>
