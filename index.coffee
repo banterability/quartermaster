@@ -28,6 +28,13 @@ app.post '/items/create', (req, res) ->
     console.log 'push response', response
     res.send 201
 
+app.post '/items/delete', (req, res) ->
+  console.log req.body
+  DEV_LIST.remove req.body.name, (err, count) ->
+    console.log 'remove err', err
+    console.log 'remove count', count
+    res.send 204
+
 port = process.env.PORT || 5678
 app.listen port, ->
   console.log "#{app.get 'env'} server up on #{port}…"
