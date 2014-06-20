@@ -1,7 +1,0 @@
-{
-  "twilio":{
-    "accountSID": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "authToken": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-    "phoneNumber": "555-3812"
-  }
-}
