@@ -14,6 +14,7 @@ var Ajax = {
     var request = new XMLHttpRequest();
     request.onload = cb;
     request.open(method, url, true);
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     return request;
   }
 };
