@@ -40,10 +40,17 @@ behavesLikeAListModel = ->
       @model.pop (err, item) ->
         assert.equal 'date', item
 
-    it 'gets all attributes off model', ->
+    it 'gets all items in model', ->
       @model.getAll (err, list) ->
         assert.equal 3, list.length
         assert.deepEqual ['apple', 'banana', 'cherry'], list
+
+    it 'removes an item by value', ->
+      @model.remove 'banana', (err, removed) =>
+        assert.equal 1, removed
+        @model.getAll (err, list) ->
+          assert.equal 2, list.length
+          assert.deepEqual ['apple', 'cherry'], list
 
 module.exports = {
   behavesLikeAModel

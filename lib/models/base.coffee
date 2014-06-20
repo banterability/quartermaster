@@ -38,5 +38,8 @@ class ListModel extends BaseModel
     @store.lrange @key, 0, -1, (err, results) ->
       cb err, results
 
+  remove: (item, cb) ->
+    @store.lrem @key, 0, item, (err, results) ->
+      cb err, results
 
 module.exports = {HashModel, ListModel}
