@@ -1,4 +1,6 @@
 express = require 'express'
+List = require './lib/models/list'
+
 app = express()
 
 app.use require('body-parser')()
@@ -11,8 +13,20 @@ app.set 'layout', 'layout'
 # app.enable 'view cache'
 app.engine 'mustache', require 'hogan-express'
 
+DEV_LIST = new List {uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d'}
+
 app.get '/', (req, res) ->
-  res.render 'index'
+  DEV_LIST.getAll (err, items) ->
+    throw new Error if err
+    res.locals.list = items
+    res.render 'index'
+
+app.post '/items/', (req, res) ->
+  console.log req.body
+  DEV_LIST.push req.body.name, (err, response) ->
+    console.log 'push err', err
+    console.log 'push response', response
+    res.send 201
 
 port = process.env.PORT || 5678
 app.listen port, ->
