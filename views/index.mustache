@@ -8,9 +8,7 @@
 <h2>quartermaster</h2>
 <ul>
   {{#list}}
-    <li>
-      <span>{{.}}</span><a class='delete-item' href='javascript:void(0);'>x</a>
-    </li>
+    {{>list_item}}
   {{/list}}
 </ul>
 <input type="text" placeholder="Add item">

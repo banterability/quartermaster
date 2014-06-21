@@ -9,7 +9,7 @@ app.use '/assets', express.static "#{__dirname}/public" unless app.get 'env' == 
 
 app.set 'view engine', 'mustache'
 app.set 'layout', 'layout'
-# app.set 'partials', header: 'header'
+app.set 'partials', list_item: 'list_item'
 # app.enable 'view cache'
 app.engine 'mustache', require 'hogan-express'
 
