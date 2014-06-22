@@ -22,17 +22,11 @@ app.get '/', (req, res) ->
     res.render 'index'
 
 app.post '/items/create', (req, res) ->
-  console.log req.body
   DEV_LIST.push req.body.name, (err, response) ->
-    console.log 'push err', err
-    console.log 'push response', response
     res.send 201
 
 app.post '/items/delete', (req, res) ->
-  console.log req.body
   DEV_LIST.remove req.body.name, (err, count) ->
-    console.log 'remove err', err
-    console.log 'remove count', count
     res.send 204
 
 port = process.env.PORT || 5678
