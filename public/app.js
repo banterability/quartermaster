@@ -25,20 +25,10 @@ var addItem = function(ev){
   console.log({el: inputEl, value: inputValue});
   Ajax.post('/items/create', {name: inputValue}, function(){
     inputEl.value = '';
-    var newItem = document.createElement('li');
-
-    var newItemText = document.createElement('span');
-    newItemText.textContent = inputValue;
-
-    var newItemDeleteLink = document.createElement('a');
-    newItemDeleteLink.href = 'javascript:void(0);'
-    newItemDeleteLink.classList.add('delete-item');
-    newItemDeleteLink.textContent = 'x';
-    addDeleteListener(newItemDeleteLink);
-
-    newItem.appendChild(newItemText);
-    newItem.appendChild(newItemDeleteLink);
-
+    var sandbox = document.createElement('div');
+    sandbox.innerHTML = templates.list_item.render({name: inputValue});
+    newItem = sandbox.children[0];
+    addDeleteListener(newItem.querySelector('.delete-item'));
     document.querySelector('ul').appendChild(newItem);
   });
 }
