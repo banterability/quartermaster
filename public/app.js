@@ -22,13 +22,11 @@ var Ajax = {
 var addItem = function(ev){
   var inputEl = document.querySelector('input');
   var inputValue = inputEl.value;
+  var itemListEl = document.querySelector('ul');
   console.log({el: inputEl, value: inputValue});
   Ajax.post('/items/create', {name: inputValue}, function(){
     inputEl.value = '';
-    var sandbox = document.createElement('div');
-    sandbox.innerHTML = templates.list_item.render({name: inputValue});
-    newItem = sandbox.children[0];
-    document.querySelector('ul').appendChild(newItem);
+    itemListEl.innerHTML += templates.list_item.render({name: inputValue});
   });
 };
 
