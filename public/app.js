@@ -28,10 +28,9 @@ var addItem = function(ev){
     var sandbox = document.createElement('div');
     sandbox.innerHTML = templates.list_item.render({name: inputValue});
     newItem = sandbox.children[0];
-    addDeleteListener(newItem.querySelector('.delete-item'));
     document.querySelector('ul').appendChild(newItem);
   });
-}
+};
 
 document.querySelector('.submit').addEventListener('click', addItem, false);
 
@@ -43,18 +42,23 @@ document.querySelector('input').addEventListener('keyup', function(ev){
   return false;
 }, false);
 
-var deleteItem = function(ev){
-  var parentEl = ev.currentTarget.parentElement;
+var deleteItem = function(linkEl){
+  var parentEl = linkEl.parentElement;
   var itemName = parentEl.querySelector('span').textContent;
   Ajax.post('/items/delete', {name: itemName}, function(){
     parentEl.remove();
   });
 };
 
-var addDeleteListener = function(el){
-  el.addEventListener('click', deleteItem, false);
+var isDeleteLink = function(el){
+  return (el.tagName === 'A') && (el.className.indexOf('delete-item') !== -1);
 };
 
-[].forEach.call(document.querySelectorAll('.delete-item'), function(node){
-  addDeleteListener(node);
-});
+// Listen "live" for delete events
+document.querySelector('ul').addEventListener('click', function(ev){
+  if(isDeleteLink(ev.target)){
+    deleteItem(ev.target);
+    return true;
+  }
+  return false;
+}, false);
