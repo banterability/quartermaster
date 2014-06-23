@@ -18,7 +18,7 @@ DEV_LIST = new List {uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d'}
 app.get '/', (req, res) ->
   DEV_LIST.getAll (err, items) ->
     throw new Error if err
-    res.locals.list = items
+    res.locals.list = items.map (item) -> {name: item}
     res.render 'index'
 
 app.post '/items/create', (req, res) ->
