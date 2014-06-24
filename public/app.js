@@ -26,7 +26,7 @@ var addItem = function(ev){
   console.log({el: inputEl, value: inputValue});
   Ajax.post('/items/create', {name: inputValue}, function(){
     inputEl.value = '';
-    itemListEl.innerHTML += templates.list_item.render({name: inputValue});
+    itemListEl.innerHTML += this.response;
   });
 };
 

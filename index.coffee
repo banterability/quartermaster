@@ -22,8 +22,10 @@ app.get '/', (req, res) ->
     res.render 'index'
 
 app.post '/items/create', (req, res) ->
-  DEV_LIST.push req.body.name, (err, response) ->
-    res.send 201
+  item = req.body.name
+  DEV_LIST.push item, (err, response) ->
+    res.locals = {name: item}
+    res.render 'list_item', layout: null
 
 app.post '/items/delete', (req, res) ->
   DEV_LIST.remove req.body.name, (err, count) ->
