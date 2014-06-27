@@ -84,28 +84,31 @@
   });
   require.define('/ajax.coffee', function (module, exports, __dirname, __filename) {
     var Ajax;
-    Ajax = {
-      get: function (url, cb) {
-        var request;
-        request = this.createRequest('get', url, cb);
-        return request.send();
-      },
-      post: function (url, payload, cb) {
-        var request;
-        request = this.createRequest('post', url, cb);
-        request.setRequestHeader('Content-Type', 'application/json');
-        return request.send(JSON.stringify(payload));
-      },
-      createRequest: function (method, url, cb) {
+    Ajax = function () {
+      var createRequest;
+      createRequest = function (method, url, cb) {
         var request;
         request = new XMLHttpRequest;
         request.onload = cb;
         request.open(method, url, true);
         request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         return request;
-      }
+      };
+      return {
+        get: function (url, cb) {
+          var request;
+          request = createRequest('get', url, cb);
+          return request.send();
+        },
+        post: function (url, payload, cb) {
+          var request;
+          request = createRequest('post', url, cb);
+          request.setRequestHeader('Content-Type', 'application/json');
+          return request.send(JSON.stringify(payload));
+        }
+      };
     };
-    module.exports = Ajax;
+    module.exports = Ajax();
   });
   require.define('/addItem.coffee', function (module, exports, __dirname, __filename) {
     var addItem, Ajax;
