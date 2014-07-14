@@ -1,4 +1,5 @@
 body{
+  font-family: Avenir;
   margin: 0;
 }
 ul{
@@ -15,23 +16,42 @@ li a{
   display: inline-block;
 }
 .delete-item{
-  background-color: rgba(0,255,0,0.8);
-  color: rgba(0,0,0,0.2);
+  background-color: rgba(255,0,0,0.2);
+  color: rgba(0,0,0,0.5);
   font-size: 12px;
   height: 40px;
   position: absolute;
   right: 0;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
   width: 60px;
 }
 #form{
-  padding: 10px;
+  position: relative;
 }
 #form input[type=text]{
-  width: 225px;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  font-family: Avenir;
+  background-color: rgba(0,0,0,0.05);
+}
+::-webkit-input-placeholder{
+  color: rgba(0,0,0,0.5);
 }
 #form button{
+  -webkit-appearance: none;
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 60px;
+  border: none;
+  height: 100%;
+  background-color: rgba(0,0,255,0.2);
+  font-family: Avenir;
+  color: rgba(0,0,0,0.5);
 }
