@@ -15,7 +15,6 @@ class CounterModel extends BaseModel
   _changeBy: (amount, cb) ->
     @get (err, results) =>
       results += amount
-      @store.set @key, results, (err, results) ->
-        cb err, results
+      @store.set @key, results, cb
 
 module.exports = CounterModel
