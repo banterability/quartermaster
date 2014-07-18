@@ -1,5 +1,5 @@
 assert = require 'assertive'
-{CounterModel} = require '../../lib/models/base'
+CounterModel = require '../../lib/models/counter'
 Behaviors = require './shared_model_tests'
 
 describe 'Counter Model', ->

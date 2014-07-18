@@ -1,11 +1,11 @@
 assert = require 'assertive'
-List = require '../../lib/models/list'
+ListModel = require '../../lib/models/list'
 Behaviors = require './shared_model_tests'
 
 describe 'List Model', ->
   describe 'inherited methods', ->
     before ->
-      @model = new List
+      @model = new ListModel
 
     Behaviors.behavesLikeAModel()
     Behaviors.behavesLikeAListModel()

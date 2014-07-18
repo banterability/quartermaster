@@ -1,6 +1,6 @@
 express = require 'express'
 List = require './lib/models/list'
-Counter = require('./lib/models/base').CounterModel
+Counter = require './lib/models/counter'
 
 app = express()
 
