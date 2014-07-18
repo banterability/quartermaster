@@ -23,7 +23,8 @@
     "assertive": "^1.4.0",
     "bondjs": "^1.1.1",
     "commonjs-everywhere": "^0.9.7",
-    "mocha": "^1.20.0"
+    "mocha": "^1.20.0",
+    "redis-mock": "^0.3.0"
   },
   "directories": {
     "test": "test"

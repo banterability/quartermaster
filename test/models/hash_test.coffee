@@ -1,12 +1,12 @@
 assert = require 'assertive'
 mockRedis = require 'redis-mock'
-CounterModel = require '../../lib/models/counter'
+HashModel = require '../../lib/models/hash'
 Behaviors = require './shared_model_tests'
 
-describe 'Counter Model', ->
+describe 'Hash Model', ->
   describe 'inherited methods', ->
     before ->
-      @model = new CounterModel store: mockRedis.createClient()
+      @model = new HashModel store: mockRedis.createClient()
 
     Behaviors.behavesLikeAModel()
-    Behaviors.behavesLikeACounterModel()
+    Behaviors.behavesLikeAHashModel()
