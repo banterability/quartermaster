@@ -8,6 +8,27 @@ behavesLikeAModel = ->
     it 'generates a unique Redis key', ->
       assert.equal "quartermaster:#{@model.constructor.name}:#{@model.uuid}", @model.dbKey()
 
+behavesLikeACounterModel = ->
+  describe 'shared counter model behaviors', ->
+    it 'returns 0 if count is undefined', ->
+      @model.get (err, value) ->
+        assert.equal 0, value
+
+    it 'increments counter twice', ->
+      @model.incr (err, value) =>
+        @model.incr (err, value) =>
+          @model.get (err, value) ->
+            assert.equal 2, value
+
+    it 'decrements counter', ->
+      @model.decr (err, value) =>
+        @model.get (err, value) ->
+          assert.equal 1, value
+
+    it 'returns correct count', ->
+      @model.get (err, value) ->
+        assert.equal 1, value
+
 behavesLikeAHashModel = ->
   describe 'shared hash model behaviors', ->
     it 'sets new attributes on model', ->
@@ -54,6 +75,7 @@ behavesLikeAListModel = ->
 
 module.exports = {
   behavesLikeAModel
+  behavesLikeACounterModel
   behavesLikeAHashModel
   behavesLikeAListModel
 }
