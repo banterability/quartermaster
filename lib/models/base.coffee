@@ -1,11 +1,8 @@
-redis = require 'redis'
 uuid = require 'node-uuid'
-
-store = redis.createClient()
 
 class BaseModel
   constructor: (options={}) ->
-    @store = store
+    @store = options.store
     @uuid = options.uuid || uuid.v1()
     @key = @dbKey()
 

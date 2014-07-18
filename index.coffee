@@ -1,4 +1,5 @@
 express = require 'express'
+redis = require 'redis'
 List = require './lib/models/list'
 Counter = require './lib/models/counter'
 
@@ -18,8 +19,9 @@ app.set 'partials',
 # app.enable 'view cache'
 app.engine 'mustache', require 'hogan-express'
 
-DEV_LIST = new List {uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d'}
-ALL_TIME_COUNTER = new Counter {uuid: 'dca73e00-0ea8-11e4-b13c-535d313891d7'}
+store = redis.createClient()
+DEV_LIST = new List {uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d', store}
+ALL_TIME_COUNTER = new Counter {uuid: 'dca73e00-0ea8-11e4-b13c-535d313891d7', store}
 
 app.get '/', (req, res) ->
   DEV_LIST.getAll (err, items) ->
