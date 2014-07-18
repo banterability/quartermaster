@@ -1,5 +1,6 @@
 express = require 'express'
 List = require './lib/models/list'
+Counter = require('./lib/models/base').CounterModel
 
 app = express()
 
@@ -18,12 +19,15 @@ app.set 'partials',
 app.engine 'mustache', require 'hogan-express'
 
 DEV_LIST = new List {uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d'}
+ALL_TIME_COUNTER = new Counter {uuid: 'dca73e00-0ea8-11e4-b13c-535d313891d7'}
 
 app.get '/', (req, res) ->
   DEV_LIST.getAll (err, items) ->
     throw new Error if err
     res.locals.list = items.map (item) -> {name: item}
-    res.render 'index'
+    ALL_TIME_COUNTER.get (err, count) ->
+      res.locals.count = count || 0
+      res.render 'index'
 
 app.post '/items/create', (req, res) ->
   item = req.body.name
@@ -33,6 +37,7 @@ app.post '/items/create', (req, res) ->
 
 app.post '/items/delete', (req, res) ->
   DEV_LIST.remove req.body.name, (err, count) ->
+    ALL_TIME_COUNTER.incr ->
     res.send 204
 
 port = process.env.PORT || 5678

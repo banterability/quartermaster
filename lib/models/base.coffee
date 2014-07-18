@@ -12,6 +12,23 @@ class BaseModel
   dbKey: ->
     "quartermaster:#{@constructor.name}:#{@uuid}"
 
+class CounterModel extends BaseModel
+  get: (cb) ->
+    @store.get @key, (err, results) ->
+      cb err, results
+
+  incr: (cb) ->
+    @_changeBy 1, cb
+
+  decr: (cb) ->
+    @_changeBy -1, cb
+
+  _changeBy: (amount, cb) ->
+    @get (err, results=0) =>
+      results = parseInt(results, 10) + amount
+      @store.set @key, results, (err, results) ->
+        cb err, results
+
 class HashModel extends BaseModel
   get: (field, cb) ->
     @store.hget @key, field, (err, results) ->
@@ -42,4 +59,4 @@ class ListModel extends BaseModel
     @store.lrem @key, 0, item, (err, results) ->
       cb err, results
 
-module.exports = {HashModel, ListModel}
+module.exports = {CounterModel, HashModel, ListModel}
