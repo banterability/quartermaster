@@ -1,5 +1,5 @@
 assert = require 'assertive'
-redis = require 'redis'
+redis = require 'fakeredis'
 ListModel = require '../../lib/models/list'
 Behaviors = require './shared_model_tests'
 
