@@ -1,3 +1,4 @@
+async = require 'async'
 configureTemplates = require './lib/templates'
 express = require 'express'
 redis = require 'redis'
@@ -9,7 +10,6 @@ app = express()
 app.use require('body-parser')()
 app.use require('morgan')('dev')
 app.use '/assets', express.static "#{__dirname}/public" unless app.get 'env' == 'production'
-
 configureTemplates(app)
 
 store = redis.createClient()
@@ -17,12 +17,16 @@ DEV_LIST = new List {uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d', store}
 ALL_TIME_COUNTER = new Counter {uuid: 'dca73e00-0ea8-11e4-b13c-535d313891d7', store}
 
 app.get '/', (req, res) ->
-  DEV_LIST.getAll (err, items) ->
+  queries =
+    listItems: (cb) -> DEV_LIST.getAll cb
+    counter: (cb) -> ALL_TIME_COUNTER.get cb
+
+  async.parallel queries, (err, results) ->
     throw new Error if err
-    res.locals.list = items.map (item) -> {name: item}
-    ALL_TIME_COUNTER.get (err, count) ->
-      res.locals.count = count || 0
-      res.render 'index'
+    {listItems, counter} = results
+    res.locals.list = listItems.map (item) -> {name: item}
+    res.locals.count = counter || 0
+    res.render 'index'
 
 app.post '/items/create', (req, res) ->
   item = req.body.name
