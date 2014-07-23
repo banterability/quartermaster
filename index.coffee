@@ -20,7 +20,7 @@ module.exports = (app) ->
   app.set 'view engine', 'mustache'
   app.set 'layout', 'layout'
   app.set 'partials', partials
-  # app.enable 'view cache'
+  app.enable 'view cache' if app.get 'env' == 'production'
   app.engine 'mustache', require 'hogan-express'
 
 store = redis.createClient()
