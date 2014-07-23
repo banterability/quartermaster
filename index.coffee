@@ -1,5 +1,4 @@
 async = require 'async'
-configureTemplates = require './lib/templates'
 express = require 'express'
 redis = require 'redis'
 
@@ -11,7 +10,18 @@ app = express()
 app.use require('body-parser')()
 app.use require('morgan')('dev')
 app.use '/assets', express.static "#{__dirname}/public" unless app.get 'env' == 'production'
-configureTemplates(app)
+
+partials =
+  list_item: 'list_item'
+  stats: 'summary'
+  new_item: 'new_item'
+
+module.exports = (app) ->
+  app.set 'view engine', 'mustache'
+  app.set 'layout', 'layout'
+  app.set 'partials', partials
+  # app.enable 'view cache'
+  app.engine 'mustache', require 'hogan-express'
 
 store = redis.createClient()
 DEV_LIST = new List uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d', store
