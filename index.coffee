@@ -19,8 +19,8 @@ app.enable 'view cache' if app.get 'env' == 'production'
 app.engine 'mustache', require 'hogan-express'
 
 store = redis.createClient()
-DEV_LIST = new List uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d', store
-ALL_TIME_COUNTER = new Counter uuid: 'dca73e00-0ea8-11e4-b13c-535d313891d7', store
+DEV_LIST = new List {uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d', store}
+ALL_TIME_COUNTER = new Counter {uuid: 'dca73e00-0ea8-11e4-b13c-535d313891d7', store}
 
 app.get '/', (req, res) ->
   queries =
