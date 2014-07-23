@@ -16,12 +16,11 @@ partials =
   stats: 'summary'
   new_item: 'new_item'
 
-module.exports = (app) ->
-  app.set 'view engine', 'mustache'
-  app.set 'layout', 'layout'
-  app.set 'partials', partials
-  app.enable 'view cache' if app.get 'env' == 'production'
-  app.engine 'mustache', require 'hogan-express'
+app.set 'view engine', 'mustache'
+app.set 'layout', 'layout'
+app.set 'partials', partials
+app.enable 'view cache' if app.get 'env' == 'production'
+app.engine 'mustache', require 'hogan-express'
 
 store = redis.createClient()
 DEV_LIST = new List uuid: 'c99fed70-f8b4-11e3-bc46-5bc2a81b342d', store
