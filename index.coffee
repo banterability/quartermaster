@@ -11,14 +11,10 @@ app.use require('body-parser')()
 app.use require('morgan')('dev')
 app.use '/assets', express.static "#{__dirname}/public" unless app.get 'env' == 'production'
 
-partials =
-  list_item: 'list_item'
-  stats: 'summary'
-  new_item: 'new_item'
-
+# Templating
 app.set 'view engine', 'mustache'
 app.set 'layout', 'layout'
-app.set 'partials', partials
+app.set 'partials', {'list_item', 'summary', 'new_item'}
 app.enable 'view cache' if app.get 'env' == 'production'
 app.engine 'mustache', require 'hogan-express'
 
