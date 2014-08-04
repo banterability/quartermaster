@@ -31,7 +31,9 @@ app.get '/', (req, res) ->
     throw new Error if err
     {listItems, counter} = results
     res.locals.list = listItems.map (item) -> {name: item}
-    res.locals.count = counter || 0
+    res.locals.stats =
+      remaining: listItems.length
+      allTime: counter || 0
     res.render 'index'
 
 app.post '/items/create', (req, res) ->
