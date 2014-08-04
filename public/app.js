@@ -74,7 +74,7 @@
       });
     };
     isDeleteLink = function (el) {
-      return el.tagName === 'A' && el.className.indexOf('delete-item') !== -1;
+      return el.tagName === 'A' && el.classList.contains('delete-item');
     };
     deleteHandler = function (ev) {
       if (isDeleteLink(ev.target))
