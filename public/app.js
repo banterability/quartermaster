@@ -51,16 +51,19 @@
       };
     }();
   require.define('/index.coffee', function (module, exports, __dirname, __filename) {
-    var addItem, deleteItem, submitOnEnter;
+    var addItem, deleteItem, init;
     addItem = require('/addItem.coffee', module);
     deleteItem = require('/removeItem.coffee', module);
-    document.querySelector('.submit').addEventListener('click', addItem, false);
-    submitOnEnter = function (ev) {
-      if (ev.keyCode === 13)
-        return ev.currentTarget.nextElementSibling.click();
-    };
-    document.querySelector('input').addEventListener('keyup', submitOnEnter, false);
-    document.querySelector('ul').addEventListener('click', deleteItem, false);
+    init = function () {
+      var submitOnEnter;
+      document.querySelector('.submit').addEventListener('click', addItem, false);
+      submitOnEnter = function (ev) {
+        if (ev.keyCode === 13)
+          return ev.currentTarget.nextElementSibling.click();
+      };
+      document.querySelector('input').addEventListener('keyup', submitOnEnter, false);
+      return document.querySelector('ul').addEventListener('click', deleteItem, false);
+    }();
   });
   require.define('/removeItem.coffee', function (module, exports, __dirname, __filename) {
     var Ajax, deleteHandler, deleteItem, isDeleteLink;
